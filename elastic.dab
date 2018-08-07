@@ -1,0 +1,46 @@
+{
+  "Services": {
+    "elasticsearch": {
+      "Env": [
+        "cluster.name=docker-cluster", 
+        "ES_JAVA_OPTS=-Xms512m -Xmx512m", 
+        "bootstrap.memory_lock=true"
+      ], 
+      "Image": "docker.elastic.co/elasticsearch/elasticsearch@sha256:8f06aecf7227dbc67ee62d8d05db680f8a29d0296ecd74c60d21f1fe665e04b0", 
+      "Networks": [
+        "esnet"
+      ], 
+      "Ports": [
+        {
+          "Port": 9200, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "elasticsearch2": {
+      "Env": [
+        "cluster.name=docker-cluster", 
+        "ES_JAVA_OPTS=-Xms512m -Xmx512m", 
+        "bootstrap.memory_lock=true", 
+        "discovery.zen.ping.unicast.hosts=elasticsearch"
+      ], 
+      "Image": "docker.elastic.co/elasticsearch/elasticsearch@sha256:8f06aecf7227dbc67ee62d8d05db680f8a29d0296ecd74c60d21f1fe665e04b0", 
+      "Networks": [
+        "esnet"
+      ]
+    }, 
+    "node": {
+      "Image": "node@sha256:bd3e48221d9b9303a6da8469e9052df92e6f562b3345fbab0871784b3960f04a", 
+      "Networks": [
+        "esnet"
+      ], 
+      "Ports": [
+        {
+          "Port": 3000, 
+          "Protocol": "tcp"
+        }
+      ]
+    }
+  }, 
+  "Version": "0.1"
+}

@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+const fetch = require('node-fetch')
+const CRS = require('fs').createReadStream
+const path = require('path')
+
+const fullUrl = url => `http://localhost:9200/${url}?pretty`
+
+const bulk = CRS(path.join('.', 'bulkPg.ldj'))
+
+fetch(fullUrl('books/book/_bulk'), {
+  method: 'POST',
+  body: bulk,
+  headers: {
+    'content-type': 'application/json'
+  }
+})
+  .then(res => res.json())
+  .then(json => console.log(JSON.stringify(json, null, 2)))
+  .catch(console.error)
