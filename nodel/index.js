@@ -19,7 +19,7 @@ let pinger = setInterval(() => {
 
       let res = client.cat.indices()
       console.log(res)
-      if (res && res.includes('books')) {
+      if (res && !res.includes('books')) {
         const { stdout } = await execFile('./putDocs', [])
         console.log(stdout)
       }
