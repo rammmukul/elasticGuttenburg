@@ -17,8 +17,8 @@ let pinger = setInterval(() => {
       console.log('All is well')
       clearTimeout(pinger)
 
-      let res = client.cat.indices()
-      console.log(res)
+      let res = await client.cat.indices()
+      console.log('<><>><<>>><><<><><><><>', res)
       if (res && !res.includes('books')) {
         const { stdout } = await execFile('./putDocs', [])
         console.log(stdout)
