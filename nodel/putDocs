@@ -3,9 +3,9 @@ const fetch = require('node-fetch')
 const CRS = require('fs').createReadStream
 const path = require('path')
 
-const fullUrl = url => `http://localhost:9200/${url}?pretty`
+const fullUrl = url => `http://elasticsearch:9200/${url}?pretty`
 
-const bulk = CRS(path.join('.', 'bulkPg.ldj'))
+const bulk = CRS(path.join('.', 'bulkPg.ldj'), {highWaterMark: 20 * 1024 * 1024})
 
 fetch(fullUrl('books/book/_bulk'), {
   method: 'POST',

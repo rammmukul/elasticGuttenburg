@@ -18,10 +18,11 @@ let pinger = setInterval(() => {
       clearTimeout(pinger)
 
       let res = await client.cat.indices()
-      console.log('<><>><<>>><><<><><><><>', res)
-      if (res && !res.includes('books')) {
-        const { stdout } = await execFile('./putDocs', [])
-        console.log(stdout)
+      if (!res || (res.includes instanceof Function && !res.includes('books'))) {
+        console.log('putting Books')
+        await execFile('./putDocs')
+          .then(res => console.log(Object.keys(res)))
+          .catch(res => console.error(res.cmd, res.stderr))
       }
     }
   })
