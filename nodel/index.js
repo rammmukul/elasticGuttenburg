@@ -18,15 +18,8 @@ let pinger = setInterval(() => {
       clearTimeout(pinger)
 
       let res = client.cat.indices()
-      //   search({
-      //   'body': {
-      //     'query': {
-      //       'fuzzy': { 'subjects': 'time' }
-      //     }
-      //   }
-      // })
       console.log(res)
-      if (res.includes('books')) {
+      if (res && res.includes('books')) {
         const { stdout } = await execFile('./putDocs', [])
         console.log(stdout)
       }
