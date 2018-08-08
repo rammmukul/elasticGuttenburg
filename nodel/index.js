@@ -21,8 +21,8 @@ let pinger = setInterval(() => {
       if (!res || (res.includes instanceof Function && !res.includes('books'))) {
         console.log('putting Books')
         await execFile('./putDocs')
-          .then(res => console.log(Object.keys(res)))
-          .catch(res => console.error(res.cmd, res.stderr))
+          .then(res => console.log(res.stdout))
+          .catch(res => console.error(res.cmd, res.stdout, 'ERROR :: ' + res.stderr))
       }
     }
   })
